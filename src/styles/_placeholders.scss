@@ -1,0 +1,18 @@
+
+%nav-link-mouseover{
+    transition: height  1s !important;
+	height: 70vh !important;
+	overflow-y: clip !important;
+	visibility: visible !important;
+}
+
+%product-detail-button{
+    border: none;
+    padding: 10px 20px;
+    background-color: $theme-color;
+    display: inline-flex;
+    color: $white-text-color;
+    justify-content: center;
+    align-items: center;
+}
+

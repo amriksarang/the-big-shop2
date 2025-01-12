@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+
+.section3{
+	height: auto;
+}
+
+.highlighted-product{
+	display: flex;
+	background-color: $carousal-small-img-background-color;
+}
+
+.highlighted-product-title{
+	font-size: 1.875rem;
+	text-align: center;
+	width: 50%;
+	align-self: center;
+}
+
+.highlighted-product-image{
+	display: block;
+	width: 50%;
+}

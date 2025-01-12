@@ -1,0 +1,87 @@
+@import './../../styles/variables.scss';
+
+.best-seller-title{
+	color: $theme-color;
+}
+
+.section2{
+	padding-top: 50px;
+}
+
+.container-small{
+    position: relative;
+    overflow-x: hidden;
+    height: 300px;
+	width: 70%;
+	margin: 0 auto;
+}
+
+
+.carousal-small{
+    display: flex;
+    position: absolute;
+    padding: 10px;
+    left: 0;
+    transition: left 1s linear;
+}
+
+.carousal-small{
+    img{
+        width: auto;
+        height: 200px;
+        display: block;
+        margin: 0 10px;
+        margin: 0 30px;
+        padding: 30px;
+        background-color: $carousal-small-img-background-color;
+    }
+}
+
+/*.carousal-small img:first-child{
+    margin-left: 0;
+}*/
+
+.carousal-small{
+    img{
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+}
+
+.carousal-small{
+    p{
+        text-align: center;
+	    padding: 3px;        
+    }
+}
+
+.carousal-small{
+    p{
+        &:first-of-type{
+            margin-top: 20px;
+        }
+    }
+}
+
+.left,
+.right{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 600;
+    z-index: 100;
+}
+
+.left i,
+.right i{
+    font-size: 2.5rem;
+}
+
+.left{
+    left: 10%;
+}
+
+.right{
+    right: 10%;
+}
