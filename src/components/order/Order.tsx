@@ -54,6 +54,8 @@ const Order: React.FC = () => {
 
         if(!user.addresses){
             navigate("/user");
+        }else{
+            setAddress(addresses[0]);
         }
         
     }, [user]);
@@ -87,6 +89,7 @@ const Order: React.FC = () => {
     }
 
     const handleAddress = (item: Address, index: number) => {
+        console.log('item', item);
         setAddress(item);
         setHouseIndex(index);
     };
@@ -99,7 +102,6 @@ const Order: React.FC = () => {
             <ul>
             {
                 addresses && addresses.map((item: Address, index: number) => {
-                    
                     return  item && <li key={item._id} style={{border: houseIndex === index ? "2px solid brown " : "1px solid lightgrey"}}>
                         <input type="radio" checked={index === houseIndex} disabled/>
                         <div className='house-details'>
@@ -110,7 +112,12 @@ const Order: React.FC = () => {
                             <p>{item.state}</p>
                             <p>{item.zipcode}</p>
                         </div>
-                        <button className='button' onClick={() => handleAddress(item, index)} disabled={houseIndex === index ? true : false}>Select</button>
+                        <button className='button' 
+                            onClick={() => {
+                                alert(index !== 0 && houseIndex === index)
+                                handleAddress(item, index)
+                            }} 
+                            disabled={ addresses.length === 1 ? true : false}>Select</button>
                     </li>
                 })
             }
