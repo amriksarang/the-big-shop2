@@ -43,7 +43,7 @@ const UserData: React.FC = () => {
     useEffect(() => {
         const getDatabase = async () => {
 			let database = await currentUser?.mongoClient("mongodb-atlas");
-			//console.log("Userrrrr", user);
+			
 			setMongoDB(database!);
 		};
 

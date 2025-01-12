@@ -50,8 +50,6 @@ export const handleAuthenticationError = (err: string | Realm.MongoDBRealmError)
 		const { error, statusCode } = err;
 		const errorType = error || statusCode;
 
-        console.log('errorType', errorType);
-
 		switch (errorType) {
 			case "invalid username":
 				// Invalid email address

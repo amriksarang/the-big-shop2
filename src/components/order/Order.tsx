@@ -23,9 +23,9 @@ const Order: React.FC = () => {
 
 
     const app: Realm.App = RealmApp();
-    // const cart: CartContextType = React.useContext(CartContext);
+    
     const cart = useAppSelector(state => state.cart);
-    // const user = React.useContext(UserContext);
+    
     const user = useAppSelector(state => state.user);
     let navigate = useNavigate();
 
@@ -40,13 +40,14 @@ const Order: React.FC = () => {
     const dispatch = useAppDispatch();
 
     useEffect( () => {
-        console.log('Order1');
+        
         if( !user.isLoggedIn){
-            console.log('Order2');
             navigate("/login");
         }
         try{
-            setProducts(JSON.parse(localStorage.getItem("products") || ''));
+            let products = JSON.parse(localStorage.getItem("products") || '');
+            
+            setProducts(products);
         }catch(e){
 
         }
@@ -62,19 +63,6 @@ const Order: React.FC = () => {
         e.preventDefault();
         
         const func = async () => {
-            console.log("calling realm");
-            // await orderCollection.insertOne( 
-            //     {
-            //         userId: user.userId,
-            //         address: address,
-            //         "credit-card": creditCard,
-            //         "primary-phone": customData["primary-phone"],
-            //         "secondary-phone": customData["secondary-phone"],
-            //         "expiry-date": expiryDate,
-            //         "name-on-card": nameOnCard,
-            //         "products": products
-            //     }
-            // );
 
             const orderData: OrderData = {
                 userId: user.userId,
@@ -89,12 +77,10 @@ const Order: React.FC = () => {
 
             dispatch(createOrder(orderData))
             
-            // await currentUser.refreshCustomData();
             dispatch(refreshData());
             
             localStorage.setItem("products", "");
             dispatch(emptyCart(''));
-            // cart.emptyCart();
             navigate('/thankyou');
         }
         func();

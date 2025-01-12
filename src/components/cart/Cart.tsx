@@ -62,7 +62,7 @@ const Cart = () => {
         </ul>
         {   products && products["products"] && products["products"].length > 0 && <>
             <h4 className='cart-product-total'>Total Price = {products?.total}</h4>
-            <p className='cart-payment-details'><Link to="/order"><button className='button' >Payment Details</button></Link></p>
+            <p className='cart-payment-details'><Link to="/order"><button className='button' onClick={() => {}}  >Payment Details</button></Link></p>
             </>
         }
 

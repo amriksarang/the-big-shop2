@@ -18,7 +18,7 @@ const Logout: React.FC = () => {
     useEffect(() => {
         
         if(!user.isLoggedIn){
-            console.log('Logout');
+            
             navigate('/login');
         }
     }, [user])

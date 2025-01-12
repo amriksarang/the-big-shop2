@@ -85,7 +85,7 @@ const cartSlice = createSlice<OrderData, CartReducers, string>({
     initialState: cartAdaptor.getInitialState(cartState),
     reducers: {
         setItem(state: OrderData, action: CartAction){ // action.payload = {product, quantity, varient}
-            console.log('action', action);
+            
             
             let varientCost = action.payload.varient.reduce((prev: number, item: ProductVarient) => {
                 if (isPropertyNullOrUndefinedOrEmpty(item, "price")) {
@@ -123,7 +123,7 @@ const cartSlice = createSlice<OrderData, CartReducers, string>({
                     total: calculateTotal(filteredProductList) + productPrice,
                 };
             }
-            console.log(JSON.stringify(state));
+            localStorage.setItem('products', JSON.stringify(state.products))
         },
         removeItem(state: OrderData, action: CartAction) { // action.payload = item: CartItem, varient: Array<ProductVarient>
                 const filteredProductList = removeProducts(state.products.products, action.payload);

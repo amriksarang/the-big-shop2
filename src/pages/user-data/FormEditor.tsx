@@ -31,7 +31,7 @@ const FormEditor: React.FC<FormData> = ({showCancel=true, formVisible=true, isAd
         if(!formVisible){
             setShowForm(false);
         }else if(isAddAddress || (data instanceof Array && data.length === 0) || !data ){
-            console.log('isAddAddress, data', isAddAddress, data);
+            
             initializeEMptyFormData();
             setShowForm(true);
         }else{

@@ -37,7 +37,7 @@ const SearchTool: React.FC<SearchFunction> = ({setSearchData}) : ReactElement =>
             setSearchData( (data: SearchData[]) => {
                 
                 const val: SearchData[] = data.filter( item => item.value !== featureValue);
-                console.log('searchData', val);
+                
                 
                 return val;
             });

@@ -24,7 +24,7 @@ const RegisterUser: React.FC = () => {
     const dispatch = useAppDispatch();
     const user = useAppSelector(state => state.user);
     const { errorMessage: registerError, isLoggedIn } = user;
-    console.log('registerError', user);
+    
 
     useEffect(() => {
         if(isLoggedIn)
@@ -61,7 +61,7 @@ const RegisterUser: React.FC = () => {
         if(invalidForm())
             return;
 
-        console.log("calling realm");
+        
         setRegisterStatus(false);
         await dispatch(registerUser({email, password}));
         setRegisterStatus(true);

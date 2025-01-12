@@ -183,7 +183,7 @@ export const registerUser = createAsyncThunk(
             return app.emailPasswordAuth.registerUser({...data});
 
         }catch( error: any){
-            console.log('reject with value', error);
+            
             return rejectWithValue(error);
         }
 });
@@ -216,10 +216,10 @@ const userSlice = createSlice<UserState, UserReducers, string>({
         },
         [logout.fulfilled as any]: (state: UserState) => {
             initializeState(state);
-            console.log('state in redux', state);
+            
         },
         [logout.rejected as any]: (state: UserState, action) => {
-            console.log('logout rejected', action);
+            
         },
         [refreshData.fulfilled as any]: (state: UserState, action) => {
             let data = action.payload;
@@ -234,11 +234,10 @@ const userSlice = createSlice<UserState, UserReducers, string>({
             setState(state, data);
         },
         [registerUser.fulfilled as any]: (state: UserState, action) => {
-            console.log('action.payload',action.payload);
+            
             state.errorMessage = '';
         },
         [registerUser.rejected as any]: (state: UserState, action) => {
-            console.log('action object', action);
             if(action.error.message.indexOf('name already in use') > -1)
                 state.errorMessage = 'Account with this email already exists';
         }

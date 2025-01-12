@@ -32,7 +32,7 @@ const Login: React.FC = () => {
     // const userContext: Partial<UserContextType> = React.useContext(UserContext);
 
     useEffect(() => {
-        console.log('user in login', user);
+        
         if( user.isLoggedIn){
             if (window.history.length > 1) {
                 navigate(-1); 
@@ -65,8 +65,6 @@ const Login: React.FC = () => {
     const loginUser = () => {
 
         if(invalidForm()){
-            console.log('invalid', email, password);
-            console.log('email', email);
             return;
         }
         
@@ -99,7 +97,6 @@ const Login: React.FC = () => {
             type="text"
             value={email}
             onChange={(e) => {
-                console.log("target email", e.target.value)
                 setEmail(e.target.value);
             }}
         />
@@ -112,7 +109,6 @@ const Login: React.FC = () => {
             type="password"
             value={password}
             onChange={(e) => {
-                console.log('target pass', e.target.value);
                 setPassword(e.target.value);
             }}
         />

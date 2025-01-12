@@ -66,7 +66,6 @@ const ProductDetail: React.FC = () => {
                 return;
             } 
 
-            console.log("calling realm");
             let product = await mongoDB?.db("the-big-shop").collection("products").findOne({
                 "product-id": parseInt(id)
             });
@@ -100,19 +99,19 @@ const ProductDetail: React.FC = () => {
 
 
     useEffect(() => {
-        console.log('products called', JSON.stringify(product?.varients))
+        
        let varientsList: ProductVarient[] = [];
        let varients: Varients[] | undefined = product?.varients;
        varients?.forEach((varient: Varients) => {
             varientsList.push({...varient["value"][0], type: varient["type"]}); //set default varients
        });
-       console.log('varientsList',varientsList);
+       
        setVarients([...varientsList]);
     },[product, setProduct]);
 
     
     useEffect(() => {
-        console.log('varients',varients);
+        
     }, [varients, setVarients]);
 
     const getFeatures = (features: Features) => {

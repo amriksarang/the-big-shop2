@@ -102,7 +102,7 @@ const ProductsList: React.FC = () => {
 		let query = mergeQueriesData();
         
 		const getProducts = async () => {
-			console.log("calling realm");
+			
 			const productsCollection = mongoDB?.db("the-big-shop")
 				.collection("products");
             setIsLoading(true);
