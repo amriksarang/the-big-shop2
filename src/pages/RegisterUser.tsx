@@ -1,40 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import * as Realm from 'realm-web';
-import { AppContext } from '../context/AppProvider';
-import {handleAuthenticationError, testEmail} from '../utils/utils';
-import { AppContextType } from '../interfaces/AppInterfaces';
+import React, { useState, useEffect } from 'react';
+import { testEmail} from '../utils/utils';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { registerUser } from '../redux/User';
-import RealmApp from '../utils/mongodb';
+
 import './login/Login.scss';
 
 const RegisterUser: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState<string>();
-    const [isRegisterError, setIsRegisterError] = useState(false);
 
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const [registerStatus, setRegisterStatus] = useState(false);
 
-    const appContext: AppContextType = React.useContext(AppContext);
-    const app = RealmApp();
-    let navigate = useNavigate();
     const dispatch = useAppDispatch();
     const user = useAppSelector(state => state.user);
-    const { errorMessage: registerError, isLoggedIn } = user;
-    
-
-    useEffect(() => {
-        if(isLoggedIn)
-            navigate('/user');
-    }, [isLoggedIn]);
-
-    useEffect(() => {
-        if(registerStatus && !registerError) navigate('/login');
-    }, [registerStatus, registerError]);
+    const { errorMessage: registerError, registerationSuccess } = user;
 
     const invalidForm = () => {
         
@@ -57,29 +37,31 @@ const RegisterUser: React.FC = () => {
         return isError;
     }
 
-    const handleClick = async (event: React.UIEvent) => {
+    const clearForm = () => {
+        setEmail('');
+        setPassword('');
+    }
 
+    useEffect(() => {
+        if(registerationSuccess){
+            clearForm();
+        }
+    }, [registerationSuccess]);
+
+    const handleClick = async (event: React.UIEvent) => {
         if(invalidForm())
             return;
-
         
-        setRegisterStatus(false);
         await dispatch(registerUser({email, password}));
-        setRegisterStatus(true);
-        // app.emailPasswordAuth.registerUser({email, password} )
-        //     .then(() => {
-        //         navigate("/user");
-        //     })
-        //     .catch((error: Realm.MongoDBRealmError) => {
-        //         let errorMsg = handleAuthenticationError(error);                
-        //         setErrorMessage(errorMsg);
-        //         setIsRegisterError(true);
-        //     })
-        
     };
 
     return <>
+    
     <div className='login-container'>
+        { registerationSuccess && 
+                <p className='register-success'>Registeration successful, please click here to 
+                    &nbsp;<a href='/login' className='register-login-link'>login</a>
+                </p>}
         <label htmlFor="username" >Username</label>
         <input
             id="username"
@@ -100,6 +82,7 @@ const RegisterUser: React.FC = () => {
         {
             registerError && <p className='register-error-field'>{registerError}</p>
         }
+        
     </div>
     
     </>

@@ -17,7 +17,8 @@ interface UserState{
     lastName: string,
     userId: string,
     primaryPhone: string,
-    secondaryPhone: string
+    secondaryPhone: string,
+    registerationSuccess: boolean
 }
 
 export interface UserData{
@@ -41,7 +42,8 @@ const userState: UserState = {
     lastName: '',
     userId: '',
     primaryPhone: '',
-    secondaryPhone: ''
+    secondaryPhone: '',
+    registerationSuccess: false
 }
 
 interface UserDetails{
@@ -235,8 +237,8 @@ const userSlice = createSlice<UserState, UserReducers, string>({
             setState(state, data);
         },
         [registerUser.fulfilled as any]: (state: UserState, action) => {
-            
             state.errorMessage = '';
+            state.registerationSuccess = true;
         },
         [registerUser.rejected as any]: (state: UserState, action) => {
             if(action.error.message.indexOf('name already in use') > -1)

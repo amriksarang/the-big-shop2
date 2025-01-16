@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProductsList from './pages/products-list/ProductsList';
 import RegisterUser from './pages/RegisterUser';
@@ -6,13 +5,12 @@ import UserData from './pages/user-data/UserData';
 import Login from './pages/login/Login';
 import Logout from './pages/Logout';
 import ProductDetail from './pages/product-detail/ProductDetail';
-import Order from './components/order/Order';
+import Order from './pages/order/Order';
 import Cart from './components/cart/Cart';
 import App from './App';
 import LandingPage from './pages/landing-page/LandingPage';
 import Footer from './components/footer/footer';
 import ThankYou from './pages/thank-you/ThankYou';
-import FormEditor from './pages/user-data/FormEditor';
 
 
 const AppRoutes = () => (
@@ -32,7 +30,6 @@ const AppRoutes = () => (
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/logout" element={<Logout/>}/>
                 <Route path="/thankyou" element={<ThankYou/>}/>
-                {/* <Route path="/form" element={<FormEditor/>}/> */}
             </Routes>
             <Footer/>
     </BrowserRouter>

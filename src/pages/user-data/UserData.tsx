@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { AppContext } from '../../context/AppProvider';
 import FormEditor from './FormEditor';
-import './UserData.scss';
-import { AppContextType } from '../../interfaces/AppInterfaces';
 import { GeneralObject, User } from '../../interfaces/User';
 import RealmApp from '../../utils/mongodb';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { updateAddress, updateUserDetails} from '../../redux/User';
+import './UserData.scss';
 
 const addressKeys = {
     "houseno": "House No",
@@ -104,7 +102,7 @@ const UserData: React.FC = () => {
         <FormEditor keysAndLabels={personalDetailsKeys} skipFields={{"_id": "_id"}} data={personalDetails} handleSubmit={handleUserData} showCancel={false} />
         {<FormEditor formVisible={false} keysAndLabels={addressKeys} skipFields={{"_id": "_id"}} data={addresses} handleSubmit={handleAddressData} deleteOption={true}/>}
         {isAddAddress && <FormEditor isAddAddress={isAddAddress} keysAndLabels={addressKeys} skipFields={{"_id": "_id"}} data={addresses} handleSubmit={handleAddressData} handleCancel={handleCancelAddressData}/>}
-        {<button className='button' onClick={handleAddAddress}>Add Address</button>}
+        {<button className='button' onClick={handleAddAddress} style={{ marginLeft: 0}}>Add Address</button>}
     </div>
 }
 

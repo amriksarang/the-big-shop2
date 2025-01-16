@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import "./CarousalLarge.scss";
 import CarousalLargeScript from "../../lib/CarousalLargeScript";
+import "./CarousalLarge.scss";
 
 const CarousalLarge: React.FC = () => {
     const imageRef: React.RefObject<HTMLDivElement> = useRef(null);

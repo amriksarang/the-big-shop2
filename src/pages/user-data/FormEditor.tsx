@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, MutableRefObject} from 'react';
+import React, {useEffect, useState, useRef } from 'react';
 import { FormData } from '../../interfaces/Forms';
 import { v4 as uuid } from 'uuid';
 
@@ -145,13 +145,15 @@ const FormEditor: React.FC<FormData> = ({showCancel=true, formVisible=true, isAd
                     key !== skipFields[key] && (<div className='form-item' key={key}>
                        
                         <label htmlFor={key} >{keysAndLabels[key]}</label>
-                        <input id={key} type="text" value={val} onChange={(e: React.ChangeEvent) => handleField(e, key)} />
+                        <div>
+                        <input id={key} type="text" value={val} onChange={(e: React.ChangeEvent) => handleField(e, key)} /><br/>
                         {(formErrors as any)?.[key] ? <p className="form-error-field">Required Field</p> : ""}
+                        </div>
                     </div>)
                 )
             }
-            <button className='button' onClick={handleFormSubmit} >Save</button>
-            {showCancel && <button className='button' onClick={cancelEdit}>Cancel</button>}
+            <button className='button' onClick={handleFormSubmit} style={{marginLeft: 0}} >Save</button>
+            {showCancel && <button className='button' onClick={cancelEdit} style={{marginLeft: 0}}>Cancel</button>}
             </form>)
         }
     </>

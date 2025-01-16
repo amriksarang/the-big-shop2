@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import mobileFeatures from '../../config/mobileFeatures';
-import './SearchTool.scss';
 import { Feature,  SearchData, SearchFunction } from '../../interfaces/Products';
+import './SearchTool.scss';
 
 const SearchTool: React.FC<SearchFunction> = ({setSearchData}) : ReactElement => {
 

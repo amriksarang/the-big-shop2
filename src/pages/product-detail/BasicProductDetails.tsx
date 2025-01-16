@@ -1,5 +1,5 @@
 import React, { ReactElement, HTMLAttributes } from 'react';
-import { Feature, Features, Position, ProductVarient, Products, Varients } from '../../interfaces/Products';
+import { Products } from '../../interfaces/Products';
 
 interface BasicProductDetailsParameters {
     product: Products,

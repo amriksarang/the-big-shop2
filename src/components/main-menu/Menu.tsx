@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
+import handleNav from '../../lib/NavScript';
 import './Menu.scss';
-import handleNav from '../../lib/script';
 
 const Nav : React.FC = () => {
 
