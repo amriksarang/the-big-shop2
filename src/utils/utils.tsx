@@ -39,46 +39,36 @@ export const convertStringToInt = (param: string | number): number => {
 	return value;
 };
 
-export const handleAuthenticationError = (err: string | Realm.MongoDBRealmError): string => {
+export const handleAuthenticationError = (err: any): string => {
 	let errorMessage = "";
 	const handleUnknownError = () => {
         errorMessage = "Something went wrong with a Realm login or signup request.";
 		console.warn(errorMessage);
-		console.error(err);
 	};
-	if (err instanceof Realm.MongoDBRealmError) {
-		const { error, statusCode } = err;
-		const errorType = error || statusCode;
+    console.log('******', err);
+    const { error, statusCode } = err;
+    const errorType = statusCode || error;
 
-		switch (errorType) {
-			case "invalid username":
-				// Invalid email address
-				errorMessage = "Invalid Username";
-				break;
-			case "invalid username/password":
-			case "invalid password":
-			case 401:
-				// Invalid password
-				errorMessage = "Invalid Username/Password";
-				break;
-			case "name already in use":
-			case 409:
-				// Email is already registered
-				errorMessage = "Email already in use";
-				break;
-			case "password must be between 6 and 128 characters":
-			case 400:
-				// Invalid password - must be between 6 and 128 characters
-				errorMessage = "Password must be between 6 and 128 characters";
-				break;
-			default:
-				// In theory you won't ever hit this default, but if an error message/code without a case ever comes up it will fall back to this.
-				handleUnknownError();
-				break;
-		}
-	} else {
-		// In this case, the error isn't a MongoDB Realm error so you probably need to add another error handler somewhere else to catch it before it gets passed to this function.
-		handleUnknownError();
-	}
+    switch (errorType) {
+        case 401:
+            // Invalid password
+            errorMessage = "Invalid Username/Password";
+            break;
+        case "name already in use":
+        case 409:
+            // Email is already registered
+            errorMessage = "Email already in use";
+            break;
+        case "password must be between 6 and 128 characters":
+        case 400:
+            // Invalid password - must be between 6 and 128 characters
+            errorMessage = "Password must be between 6 and 128 characters";
+            break;
+        default:
+            // In theory you won't ever hit this default, but if an error message/code without a case ever comes up it will fall back to this.
+            handleUnknownError();
+            break;
+    }
+	
 	return errorMessage;
 };

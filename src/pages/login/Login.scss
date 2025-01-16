@@ -33,9 +33,14 @@
     text-decoration: underline;
 }
 
-.error-field{
+.error-field, .register-error-field{
     font-size: 0.875rem;
     color: $error;
+}
+.error-field{
     margin-bottom: 20px;
-    margin-top: 20px;
+}
+
+.register-error-field{
+    margin-top: 10px;
 }

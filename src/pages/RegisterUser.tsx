@@ -7,6 +7,7 @@ import { AppContextType } from '../interfaces/AppInterfaces';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { registerUser } from '../redux/User';
 import RealmApp from '../utils/mongodb';
+import './login/Login.scss';
 
 const RegisterUser: React.FC = () => {
     const [email, setEmail] = useState("");
@@ -94,10 +95,10 @@ const RegisterUser: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
         />
-        {passwordError && <p className='error-field'>Required Field</p>}
+        {passwordError && <p className='error-field'>Password is required</p>}
         <button className='button' onClick={handleClick}>Register</button>
         {
-            registerError && <p className='error-field'>{registerError}</p>
+            registerError && <p className='register-error-field'>{registerError}</p>
         }
     </div>
     

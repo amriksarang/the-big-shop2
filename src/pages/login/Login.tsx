@@ -1,16 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
-import { AppContext } from '../../context/AppProvider';
-import * as Realm from "realm-web";
-import { UserContext } from '../../context/UserProvider';
-import {handleAuthenticationError, testEmail} from '../../utils/utils';
-import { AppContextType } from '../../interfaces/AppInterfaces';
-import { UserContextType } from '../../interfaces/User';
+import { useNavigate } from "react-router-dom";
+import { testEmail } from '../../utils/utils';
 import {Link} from 'react-router-dom';
 import { login } from '../../redux/User';
 import './Login.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import RealmApp from '../../utils/mongodb';
 
 const Login: React.FC = () => {
 
@@ -27,20 +21,17 @@ const Login: React.FC = () => {
     const user = useAppSelector(state => {
         return state.user;
     });
-    // const appContext: Partial<AppContextType> = React.useContext(AppContext)
-
-    // const userContext: Partial<UserContextType> = React.useContext(UserContext);
 
     useEffect(() => {
         
         if( user.isLoggedIn){
-            if (window.history.length > 1) {
-                navigate(-1); 
-              } else {
                 navigate("/");
-              }
         }
-    }, [user]);
+        if(user.isLoginError){
+            setErrorMessage(user.errorMessage);
+            setIsLoginError(true);
+        }
+    }, [user, navigate]);
 
     const invalidForm = () => {
         let isError = false;
@@ -69,22 +60,6 @@ const Login: React.FC = () => {
         }
         
         dispatch(login({email, password}));
-        // try{
-        //     const credentials = Realm.Credentials.emailPassword(email, password);
-        //     app?.logIn(credentials)
-        //                 .then( result => {
-        //                     (userContext as UserContextType).setIsUserLoggedIn(true);
-        //                     navigate(-1);
-        //                 })
-        //                 .catch( (error: Realm.MongoDBRealmError) => {                            
-        //                     let errorMsg = handleAuthenticationError(error);                            
-        //                     setErrorMessage(errorMsg);
-        //                     setIsLoginError(true);
-        //                 });        
-            
-        // }catch(e){            
-        //     console.log(e);
-        // }
         
     };
 
@@ -112,7 +87,7 @@ const Login: React.FC = () => {
                 setPassword(e.target.value);
             }}
         />
-        {passwordError && <p className='error-field'>Required Field</p>}
+        {passwordError && <p className='error-field'>Please enter password</p>}
         <button className='button' onClick={loginUser} data-testid='log-in'>Log In</button>
         {
             isLoginError && <p>{errorMessage}</p>

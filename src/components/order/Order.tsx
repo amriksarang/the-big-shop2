@@ -5,6 +5,7 @@ import { CartContext, CartContextType } from '../../context/CartProvider';
 import {UserContext} from '../../context/UserProvider';
 import './Order.scss';
 import { Address } from '../../interfaces/User';
+import UserAddress from './UserAddress'
 import { ProductCart } from '../../interfaces/Products';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import RealmApp from '../../utils/mongodb';
@@ -97,33 +98,9 @@ const Order: React.FC = () => {
     return <>
     <div className="order-container">
         <h4>Select Addresses</h4>
-        <div className='address-container'>
-        
-            <ul>
-            {
-                addresses && addresses.map((item: Address, index: number) => {
-                    return  item && <li key={item._id} style={{border: houseIndex === index ? "2px solid brown " : "1px solid lightgrey"}}>
-                        <input type="radio" checked={index === houseIndex} disabled/>
-                        <div className='house-details'>
-                            <p>{item.houseno}</p>
-                            <p>{item.street1}</p>
-                            {item.street2 && <p>{item.street2}</p>}
-                            <p>{item.city}</p>
-                            <p>{item.state}</p>
-                            <p>{item.zipcode}</p>
-                        </div>
-                        <button className='button' 
-                            onClick={() => {
-                                alert(index !== 0 && houseIndex === index)
-                                handleAddress(item, index)
-                            }} 
-                            disabled={ addresses.length === 1 ? true : false}>Select</button>
-                    </li>
-                })
-            }
-            </ul>
+        <div className='address-container'>        
+            <UserAddress addresses={addresses} houseIndex={houseIndex} handleAddress={handleAddress}/>
 
-            
             <h4>Total Price = {products && products["total"]}</h4>
         </div>
 

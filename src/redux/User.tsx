@@ -163,6 +163,7 @@ export const login = createAsyncThunk(
             const credentials = Realm.Credentials.emailPassword(data.email, data.password);
             
             const user = await app?.logIn(credentials);
+            console.log(user);
 
             let customData = user?.customData as any;
             

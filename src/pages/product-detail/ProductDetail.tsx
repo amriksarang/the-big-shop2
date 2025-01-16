@@ -1,33 +1,23 @@
 import React , {useState, useEffect, HTMLAttributes} from 'react';
 import {  useSearchParams } from "react-router-dom";
-import { AppContext } from '../../context/AppProvider';
-import { CartContext, CartContextType } from '../../context/CartProvider';
-import {Link} from 'react-router-dom';
-import './ProductDetail.scss';
-import { Feature, Features, Position, ProductVarient, Products, Varients } from '../../interfaces/Products';
-import { AppContextType } from '../../interfaces/AppInterfaces';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { Link } from 'react-router-dom';
+import { Position, ProductVarient, Products, Varients } from '../../interfaces/Products';
+import { useAppDispatch } from '../../redux/hooks';
 import { setItem } from '../../redux/Cart';
 import RealmApp from '../../utils/mongodb';
 import LargeImageContainer from '../../lib/image-magnifier/LargeImageContainer';
 import MagnifierCanvas from '../../lib/image-magnifier/MagnifierCanvas';
-import * as Realm1 from "realm-web";
 import { getDatabase } from '../../utils/utils';
+import BasicProductDetails from './BasicProductDetails';
+import ProductQuantityControlsParameters from './ProductQuantityControls'
+import ProductFeatures from './ProductFeatures';
+import ProductVarients from './ProductVarients';
+import './ProductDetail.scss';
 
 const ProductDetail: React.FC = () => {
-    let selector: HTMLDivElement, 
-        imageContainer: HTMLDivElement, 
-        imageContainerRect: DOMRect, 
-        imageContainerRectLeft: number, 
-        imageContainerRectRight: number, 
-        imageContainerRectTop: number, 
-        imageContainerRectBottom: number,
-        selectorWidth: number, 
-        selectorHeight: number,
-        magnifiedImageCanvas: HTMLImageElement;
 
     const [product, setProduct] = useState<Products>(null!);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const [varients, setVarients] = useState<ProductVarient[]>([]);
     const [quantity, setQuantity] = useState(1);
     const [position, setPosition] = useState<Partial<Position>>(null!);
@@ -38,8 +28,6 @@ const ProductDetail: React.FC = () => {
     const app: Realm.App = RealmApp();
 
     const [mongoDB, setMongoDB] = useState<Realm.Services.MongoDB | undefined>(null!);
-
-    // const cart: CartContextType = React.useContext(CartContext);
 
     const dispatch = useAppDispatch();
 
@@ -114,36 +102,6 @@ const ProductDetail: React.FC = () => {
         
     }, [varients, setVarients]);
 
-    const getFeatures = (features: Features) => {
-        
-        return Object.entries(features).map( ([key, value]) => <li key={key}>
-            {`${key}: ${value}`}
-        </li>)
-    }
-
-    const getVarients = (varients: Varients[]) => {
-        
-        return varients.map( (varient, index) => {
-            
-            let selectedVarient = position;
-            if(!selectedVarient){
-                selectedVarient = {[varient.type]: 0};
-            }
-           
-            return <li key={varient.type} className="varient-list">
-                        {`${varient.type}`}&nbsp;
-                        {
-                        varient.value.map((item, index1) => 
-                            <span  key={item.id + item.value} className={selectedVarient[varient.type] === index1 ? "selected-varient" : "not-selected-varient"}
-                                onClick={() => handleVarients(varient.type, index1, {"type": varient.type, "id": item.id, "value": item.value, "price": item.price})}>
-                                &nbsp;&nbsp;{item.value} &nbsp;&nbsp;
-                            </span>
-                        )
-                        }
-                    </li>
-        })
-    }
-
     const handleProduct = () => {
         
         // cart.setItem(product, quantity, varients);
@@ -170,8 +128,6 @@ const ProductDetail: React.FC = () => {
     }
 
     const setLargeImage = (e: React.MouseEvent) => {
-        // checkImageElementInitialization();
-    
         let src = (e.target as HTMLImageElement).src.replace("thumb", "large");
     
         setLargeImageSrc(src)
@@ -191,37 +147,19 @@ const ProductDetail: React.FC = () => {
                             product.images.thumbs.map(thumb => <img key={thumb} src={thumb} onClick={setLargeImage} alt="thumbs"/>)
                         }
                     </div>
-                    {/* <div onMouseMove={mouseoverSelectorPositionController} className="image-container" onMouseLeave={handleMouseLeave}>
-                        <div className="mouseover-selector" ></div>
-                        <img id="large-image" src={product.images.large[0]} alt="main"/>
-                    </div> */}
                     <LargeImageContainer className='image-container' largeImageSrc={largeImage === '' ? product.images.large[0]: largeImage} />
                 </div>
                 <div className='product-details'>
-                    {/* <div id="magnifier-canvas" className="magnifier-canvas"><img src={product.images.large[0]} id="magnified-image" alt="Magnified"/></div> */}
                     <MagnifierCanvas className='magnifier-canvas' magniFiedImageSrc={magnifiedImage === '' ? product.images.large[0]: magnifiedImage} />
-                    <h3>{product["product-title"]}</h3>
-                    <p><a href="#" className='product-detail-store'>Visit the {product.features["Brand"]} Store</a></p>
-                    <div> <div className="product-ratings">
-                        <div className="empty-stars">&nbsp;</div>
-                        <div className="filled-stars" style={ratingStyle()}></div>
-                    </div>&nbsp;{product.features["Reviews"]}&nbsp; ratings</div>
-                    <p className='mrp-price' style={{'marginLeft': 0}}>MRP: Rs.{product.mrp}</p>
-                    <p>Rs. {discountedPrice()} (less {product.discount})</p>
+                    <BasicProductDetails product={product} discountedPrice={discountedPrice} ratingStyle={ratingStyle}/>
                     <p className='product-detail-features'>Features:</p>
-                    <ul>
-                        {getFeatures(product.features) }
-                    </ul>
+                    <ProductFeatures features={product.features} />
+                    
                     <p className='product-detail-select-option-text'>Select options</p>
-                    <ul>
-                        {getVarients(product.varients)}
-                    </ul>
+                    <ProductVarients varients={product.varients} position={position} handleVarients={handleVarients}/>
                     <p className='product-detail-text'>Details</p>
                     <ul className="product-detail-details">{productDetailHtml()}</ul>
-                    <button className='product-detail-decrease-button' onClick={() => setQuantity( quantity => quantity > 1 ? quantity - 1 : 1) }> - </button> 
-                    <span data-testid='quantity-elem'>{quantity}</span>
-                    <button className='product-detail-increase-button' data-testid="increment" onClick={() => setQuantity( quantity => quantity + 1) }> + </button>
-                    <button  className='button' onClick={handleProduct} data-testid="add-product">Add Product</button>
+                    <ProductQuantityControlsParameters quantity={quantity} setQuantity={setQuantity} handleProduct={handleProduct} />
                     <Link to="/cart" className="button" data-testid="go-to-cart">Go to Cart</Link>
                 </div>
             </div>
