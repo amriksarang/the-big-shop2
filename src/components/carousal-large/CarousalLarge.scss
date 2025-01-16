@@ -63,6 +63,12 @@ section{
     background-color: $background-color-large-carousal;
 }
 
+@media screen and (max-width: 1000px) {
+    .section1-title{
+        width: 70%;
+    }
+}
+
 @media screen and (max-width: 600px) {
 	.dots{
 		right: 15px;
@@ -81,6 +87,7 @@ section{
 
     .section1-title{
         font-size: 1.1rem;
+        width: 90%;
     }
 }
 

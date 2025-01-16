@@ -98,7 +98,7 @@ const UserData: React.FC = () => {
 
 
     return <div className="user-address-container">
-        <p style={{textAlign: "right", marginTop: "20px"}}><button className='button' onClick={goToCart}>Go To Cart</button></p>
+        <p style={{textAlign: "right", marginTop: "20px", marginBottom: '5px'}}><button className='button' onClick={goToCart}>Go To Cart</button></p>
         <FormEditor keysAndLabels={personalDetailsKeys} skipFields={{"_id": "_id"}} data={personalDetails} handleSubmit={handleUserData} showCancel={false} />
         {<FormEditor formVisible={false} keysAndLabels={addressKeys} skipFields={{"_id": "_id"}} data={addresses} handleSubmit={handleAddressData} deleteOption={true}/>}
         {isAddAddress && <FormEditor isAddAddress={isAddAddress} keysAndLabels={addressKeys} skipFields={{"_id": "_id"}} data={addresses} handleSubmit={handleAddressData} handleCancel={handleCancelAddressData}/>}

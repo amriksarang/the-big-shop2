@@ -84,35 +84,37 @@ const Header: React.FC = () => {
                     <li><Instagram/></li>
                     <li><Twitter/></li>
                     <li><Pinterest/></li>
-                    <ul className="user-login">
+                    <li style={{marginLeft: 'auto'}}>
+                        <ul className="user-login">
 
-                        <li>
-                            <Link to="/cart">
-                                <Cart/>
-                            </Link>
-                            { getNoOfCartItems() > 0 ? `(${getNoOfCartItems()})`: ""}
-                        </li>
-                    
-                        <li>
-                            {
-				                isUserLoggedIn && <>	
-                                <span className='logout-link' onClick={handleLogout}>Log Out</span>	
-                                <Link to="/user">	                
-                                    <Login/>             
+                            <li>
+                                <Link to="/cart">
+                                    <Cart/>
                                 </Link>
-                                </>
-                            }
-                            
-                            {
-                                !isUserLoggedIn && <>
-                                    <Link to="/login"><span className="login-text">Log In / Register</span></Link>                                  
-                                </>
-                            }
-                            
-                        </li>                        
-                    
+                                { getNoOfCartItems() > 0 ? `(${getNoOfCartItems()})`: ""}
+                            </li>
                         
-                    </ul>
+                            <li>
+                                {
+                                    isUserLoggedIn && <>	
+                                    <span className='logout-link' onClick={handleLogout}>Log Out</span>	
+                                    <Link to="/user">	                
+                                        <Login/>             
+                                    </Link>
+                                    </>
+                                }
+                                
+                                {
+                                    !isUserLoggedIn && <>
+                                        <Link to="/login"><span className="login-text">Log In / Register</span></Link>                                  
+                                    </>
+                                }
+                                
+                            </li>                        
+                        
+                            
+                        </ul>
+                    </li>
                 </ul>
             </div>
                     

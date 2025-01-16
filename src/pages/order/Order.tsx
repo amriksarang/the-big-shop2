@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { AppContext } from '../../context/AppProvider';
-import { CartContext, CartContextType } from '../../context/CartProvider';
-import {UserContext} from '../../context/UserProvider';
-import './Order.scss';
 import { Address } from '../../interfaces/User';
 import UserAddress from './UserAddress'
 import { ProductCart } from '../../interfaces/Products';
@@ -11,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import RealmApp from '../../utils/mongodb';
 import { refreshData } from '../../redux/User';
 import { emptyCart, createOrder, OrderData } from '../../redux/Cart';
+import './Order.scss';
 
 const Order: React.FC = () => {
 
@@ -25,18 +22,12 @@ const Order: React.FC = () => {
 
     const app: Realm.App = RealmApp();
     
-    const cart = useAppSelector(state => state.cart);
-    
     const user = useAppSelector(state => state.user);
     let navigate = useNavigate();
 
     let currentUser: Realm.User = app.currentUser!;
     let addresses = user.addresses as Array<Address>;
     let customData = currentUser.customData;    
-
-    let mongoDB = currentUser!.mongoClient("mongodb-atlas");
-    let database = mongoDB.db("the-big-shop");
-    let orderCollection = database.collection("orders");
 
     const dispatch = useAppDispatch();
 

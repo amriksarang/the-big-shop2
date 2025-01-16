@@ -117,6 +117,7 @@
 
 .varient-list{
     margin: 10px 0;
+    display: flex;
 }
 
 .product-detail-details{
@@ -135,19 +136,14 @@
 
 
 
-@media  screen and (max-width: 600px){
+@media  screen and (max-width: 780px){
     .product-details-container{
         flex-direction: column;
     }
 
     .product-thumbs{
         flex-direction: row;
-    }
-
-    .product-thumbs img{
-        img{
-            max-width: 45px;
-        }
+        align-self: center;
     }
 
     .product-image-large{
@@ -177,5 +173,15 @@
 
     .magnifier-canvas{
         display: none;
+    }
+
+}
+
+@media  screen and (max-width: 400px){
+
+    .product-thumbs {
+        img{
+            max-width: 50px;
+        }
     }
 }

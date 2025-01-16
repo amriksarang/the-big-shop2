@@ -153,7 +153,7 @@ const FormEditor: React.FC<FormData> = ({showCancel=true, formVisible=true, isAd
                 )
             }
             <button className='button' onClick={handleFormSubmit} style={{marginLeft: 0}} >Save</button>
-            {showCancel && <button className='button' onClick={cancelEdit} style={{marginLeft: 0}}>Cancel</button>}
+            {showCancel && <button className='button' onClick={cancelEdit}>Cancel</button>}
             </form>)
         }
     </>

@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import { Link, useNavigate, NavLink, NavigateFunction } from 'react-router-dom';
 import handleNav from '../../lib/NavScript';
 import './Menu.scss';
 
@@ -11,7 +12,7 @@ const Nav : React.FC = () => {
     return (
         <div className="categories">
         <div className="category">
-            <h4>Mobiles</h4>
+            <h4><NavLink to="/mobiles">Mobiles</NavLink></h4>
             <div className="sub-categories">
                 <div className="sub-category">
                     <h4>Smartphones</h4>
