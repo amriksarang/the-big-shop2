@@ -51,15 +51,24 @@ export default class QueryBuilder {
 		}
 
 		let searchText = pattern.split(/(\s+)/);
+		let mustQuery = searchText
+			.filter((item) => item.trim().length > 1)
+			.map((item) => {
+				return {
+					text: {
+						query: item,
+						path: {
+							wildcard: "*",
+						},
+					},
+				};
+			});
 
 		return {
 			$search: {
-				index: "default",
-				text: {
-					query: searchText,
-					path: {
-						wildcard: "*",
-					},
+				index: "the-big-shop-index-products",
+				compound: {
+					must: mustQuery,
 				},
 			},
 		};
