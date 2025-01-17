@@ -75,14 +75,13 @@ const ProductDetail: React.FC = () => {
 
 // varient.type, index1, {"type": varient.type, "id": item.id, "value": item.value, "price": item.price}
     const handleVarients = (type: string, index: number, varient: ProductVarient) => {
-
         let items = varients.reduce((prev: ProductVarient[], item: ProductVarient | undefined) => { //collect all other varients except this one
             if(item?.type !== varient.type)  prev.push(item!) ;        
             return prev;
         }, []);
-
+        
         setPosition(position => ({...position, [type]: index}));
-        // setVarients([...items, varient]);    //spread other varients and then add this one
+        setVarients([...items, varient]);    //spread other varients and then add this one
     }
 
 
@@ -97,14 +96,8 @@ const ProductDetail: React.FC = () => {
        setVarients([...varientsList]);
     },[product, setProduct]);
 
-    
-    useEffect(() => {
-        
-    }, [varients, setVarients]);
 
     const handleProduct = () => {
-        
-        // cart.setItem(product, quantity, varients);
         dispatch(setItem({product, quantity, varient: varients}));
     }
 
@@ -132,7 +125,6 @@ const ProductDetail: React.FC = () => {
     
         setLargeImageSrc(src)
         setMagnifiedImageSrc(src);
-        
     }
 
     return <>

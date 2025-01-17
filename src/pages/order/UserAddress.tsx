@@ -23,7 +23,6 @@ const UserAddress: React.FC<UserAddressParameters> = ({addresses, houseIndex, ha
                 </div>
                 <button className='button' 
                     onClick={() => {
-                        alert(index !== 0 && houseIndex === index)
                         handleAddress(item, index)
                     }} 
                     disabled={ addresses.length === 1 ? true : false}>Select</button>

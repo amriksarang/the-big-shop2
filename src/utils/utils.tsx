@@ -45,7 +45,7 @@ export const handleAuthenticationError = (err: any): string => {
         errorMessage = "Something went wrong with a Realm login or signup request.";
 		console.warn(errorMessage);
 	};
-    console.log('******', err);
+    
     const { error, statusCode } = err;
     const errorType = statusCode || error;
 

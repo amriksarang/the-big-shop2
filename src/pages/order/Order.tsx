@@ -81,7 +81,6 @@ const Order: React.FC = () => {
     }
 
     const handleAddress = (item: Address, index: number) => {
-        console.log('item', item);
         setAddress(item);
         setHouseIndex(index);
     };
