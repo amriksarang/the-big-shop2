@@ -43,6 +43,7 @@ const CarousalLargeScript = (containerRoot, rule) => {
 				highlightedDotElement.classList.remove("highlighted-dot");
 			}
 
+			//Below 3 steps happen instantly
 			carousalElement.classList.remove("carousal-large-transform");
 			carousalElement.appendChild(imageElement);
 			carousalElement.style.transform = "translateX(0)";
@@ -56,10 +57,9 @@ const CarousalLargeScript = (containerRoot, rule) => {
 		carousalElement.appendChild(imageElement);
 	}
 
-	/* account for image load delay */
 	let len = allCarousalImagesList.length,
 		counter = 0;
-
+	/* account for image load delay */
 	[].forEach.call(allCarousalImagesList, function (img) {
 		if (img.complete) incrementCounter();
 		else img.addEventListener("load", incrementCounter, false);
@@ -68,6 +68,7 @@ const CarousalLargeScript = (containerRoot, rule) => {
 	function incrementCounter() {
 		counter++;
 		if (counter === len) {
+			// run only when all images are loaded
 			for (let i = 0; i < allCarousalImagesList.length; i++) {
 				let dot = document.createElement("div");
 				dot.setAttribute("image", i);
@@ -92,6 +93,7 @@ const CarousalLargeScript = (containerRoot, rule) => {
 			) {
 				removeImage();
 			} else {
+				// this will run for only one image
 				clearInterval(intervalHandle);
 				isSlideShowPaused = true;
 				if (highlightedDotElement) {
